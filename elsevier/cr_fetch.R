@@ -54,7 +54,7 @@ license_all %>%
   filter(hybrid_license == TRUE) -> license_sub
 #' remove full oa journals
 elsevier_jns %>%
-  filter(!`OA model` == "Open Acess") -> elsevier_nonoa_jns
+  filter(!`OA model` == "Open Access") -> elsevier_nonoa_jns
 license_sub %>%
   filter(issn %in% elsevier_nonoa_jns$ISSN) %>%
   filter(hybrid_license == TRUE) -> oa_license_df
@@ -86,3 +86,6 @@ cr_license_df %>%
   unnest(md) %>% 
   select(1:27) %>% 
   write_csv("data/hybrid_oa.csv")
+cr_license_df  %>% 
+  unnest(md) %>%
+  count(container.title, sort = TRUE)
